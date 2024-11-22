@@ -1,0 +1,5 @@
+menu:
+    - name: 页面1
+      path: /
+    - name: 页面2
+      path: page2
