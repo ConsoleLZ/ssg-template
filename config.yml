@@ -1,5 +1,11 @@
 menu:
-    - name: 页面1
+    - name: home
       path: /
-    - name: 页面2
-      path: page2
+      renderTemplates: index
+    - name: hello
+      path: hello.html
+      renderTemplates: index
+
+templatesCss:
+    - name: index
+      cssPath: src/css/index.css

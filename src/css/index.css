@@ -1,23 +1,14 @@
-/* From Uiverse.io by eslam-hany */
 .button-container {
 	display: flex;
-	background-color: rgba(0, 73, 144);
+	background-color: black;
 	width: 250px;
 	height: 40px;
 	align-items: center;
 	justify-content: space-around;
 	border-radius: 10px;
-	box-shadow:
-		rgba(0, 0, 0, 0.35) 0px 5px 15px,
-		rgba(0, 73, 144, 0.5) 5px 10px 15px;
-	transition: all 0.5s;
-}
-.button-container:hover {
-	width: 300px;
-	transition: all 0.5s;
-}
-
-.button {
+  }
+  
+  .button {
 	outline: 0 !important;
 	border: 0 !important;
 	width: 40px;
@@ -30,12 +21,13 @@
 	color: #fff;
 	transition: all ease-in-out 0.3s;
 	cursor: pointer;
-}
-
-.button:hover {
+  }
+  
+  .button:hover {
 	transform: translateY(-3px);
-}
-
-.icon {
+  }
+  
+  .icon {
 	font-size: 20px;
-}
+  }
+  
