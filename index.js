@@ -133,8 +133,8 @@ const main = async () => {
 	const pagesFile = await readDirectory(directoryPath);
 	pagesFile.forEach(async item => {
 		const pagePath = path.join(__dirname, `src/pages/${item}`);
-		const menuFind = parseConfig().menu.find(menuItem => menuItem.name === item.split('.')[0]);
-		const outPath = `dist/${menuFind.path.replace(/^\//, 'index.html')}`;
+		const menuFind = parseConfig().menu.find(menuItem => menuItem.path === item.split('.')[0]);
+		const outPath = `dist/${menuFind.path.replace(/^\//, 'index')}.html`;
 		const templatePath = path.join(__dirname, `src/templates/${menuFind.renderTemplates}.ejs`);
 		await generatePage(pagePath, outPath, templatePath, data);
 	});

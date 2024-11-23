@@ -1,9 +1,9 @@
 title: My Static Site
 
 menu:
-    - name: home
-      path: /
+    - name: 首页
+      path: index
       renderTemplates: index
-    - name: hello
-      path: hello.html
+    - name: 测试
+      path: hello
       renderTemplates: index
