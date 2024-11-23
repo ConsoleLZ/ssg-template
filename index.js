@@ -103,10 +103,10 @@ const main = async () => {
 	const data = {
 		config: parseConfig()
 	};
-	// 移除上次打包结果
-	await clearDistDir();
 	// 创建打包目录
 	await createDistDir(path.join(__dirname, 'dist'));
+	// 移除上次打包结果
+	await clearDistDir();
 
 	// 复制css文件
 	var directoryPath = path.join(__dirname, 'src/css');
