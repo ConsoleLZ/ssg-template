@@ -40,10 +40,10 @@ const renderTemplate = async (templatePath, data) => {
 	return ejs.render(template, data);
 };
 
-// 创建 dist 目录
-const createDistDir = async () => {
+// 创建目录
+const createDistDir = async path => {
 	try {
-		await mkdir(path.join(__dirname, 'dist'), { recursive: true });
+		await mkdir(path, { recursive: true });
 	} catch (error) {
 		console.error(`Error creating directory: ${error.message}`);
 		throw error;
@@ -101,67 +101,33 @@ const readDirectory = async directoryPath => {
 // 入口函数
 const main = async () => {
 	const data = {
-		title: 'My Static Site',
 		config: parseConfig()
 	};
 	// 移除上次打包结果
 	await clearDistDir();
 	// 创建打包目录
-	await createDistDir();
+	await createDistDir(path.join(__dirname, 'dist'));
 
-	// 处理css文件
-	// const templatesCss = parseConfig().templatesCss
-	// templatesCss.forEach(async (item)=>{
-	// 	// 输出路径
-	// 	const outCssPath = path.join(__dirname, `dist/css/${item.name}.css`)
-	// 	// 输入路径
-	// 	const sourceCssPath = path.join(__dirname, item.cssPath)
-	// 	await createDistDir(path.dirname(outCssPath));
-	// 	await copyFileToDist(sourceCssPath, outCssPath);
-	// })
-	
+	// 复制css文件
+	var directoryPath = path.join(__dirname, 'src/css');
+	const cssFile = await readDirectory(directoryPath);
+	cssFile.forEach(async item => {
+		const cssPath = path.join(__dirname, `src/css/${item}`);
+		const outCssPath = path.join(__dirname, `dist/css/${item}`);
+		await createDistDir(path.dirname(outCssPath));
+		await copyFileToDist(cssPath, outCssPath);
+	});
+
 	// 读取pages目录
-	const directoryPath = path.join(__dirname, 'src/pages');
+	var directoryPath = path.join(__dirname, 'src/pages');
 	const pagesFile = await readDirectory(directoryPath);
-	pagesFile.forEach(async (item)=>{
-		const pagePath = path.join(__dirname, `src/pages/${item}`)
-		const menuFind = parseConfig().menu.find(menuItem => menuItem.name === item.split('.')[0])
-		const outPath = `dist/${menuFind.name}.html`
-		const templatePath = path.join(__dirname, `src/templates/${menuFind.renderTemplates}.ejs`)
+	pagesFile.forEach(async item => {
+		const pagePath = path.join(__dirname, `src/pages/${item}`);
+		const menuFind = parseConfig().menu.find(menuItem => menuItem.name === item.split('.')[0]);
+		const outPath = `dist/${menuFind.path.replace(/^\//, 'index.html')}`;
+		const templatePath = path.join(__dirname, `src/templates/${menuFind.renderTemplates}.ejs`);
 		await generatePage(pagePath, outPath, templatePath, data);
-	})
+	});
 };
 
 main();
-
-// 配置
-// const contentPath1 = path.join(__dirname, 'src/content/page1.md');
-// const contentPath2 = path.join(__dirname, 'src/content/page2.md');
-// const outputPath1 = path.join(__dirname, 'dist/index.html');
-// const outputPath2 = path.join(__dirname, 'dist/page2.html');
-// const templatePath = path.join(__dirname, 'src/templates/index.ejs');
-// const mainCssPath = path.join(__dirname, 'src/css/index.css');
-// const outMainCssPath = path.join(__dirname, 'dist/css/index.css');
-// const data = {
-// 	title: 'My Static Site',
-// 	config: parseConfig()
-// };
-
-// // 主程序
-// (async () => {
-// 	try {
-// 		// 创建或清空 dist 目录
-// 		await createDistDir();
-// 		await clearDistDir();
-
-// 		// 复制 CSS 文件
-// 		await createDistDir(path.dirname(outMainCssPath));
-// 		await copyFileToDist(mainCssPath, outMainCssPath);
-
-// 		// 生成静态页面
-// 		await generatePage(contentPath1, outputPath1, templatePath, data);
-// 		await generatePage(contentPath2, outputPath2, templatePath, data);
-// 	} catch (error) {
-// 		console.error(`Error in main program: ${error.message}`);
-// 	}
-// })();

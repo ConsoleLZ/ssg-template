@@ -1,3 +1,5 @@
+title: My Static Site
+
 menu:
     - name: home
       path: /
@@ -5,7 +7,3 @@ menu:
     - name: hello
       path: hello.html
       renderTemplates: index
-
-templatesCss:
-    - name: index
-      cssPath: src/css/index.css
