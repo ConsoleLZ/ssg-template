@@ -118,6 +118,16 @@ const main = async () => {
 		await copyFileToDist(cssPath, outCssPath);
 	});
 
+	// 复制js文件
+	var directoryPath = path.join(__dirname, 'src/js');
+	const jsFile = await readDirectory(directoryPath);
+	jsFile.forEach(async item => {
+		const jsPath = path.join(__dirname, `src/js/${item}`);
+		const outJsPath = path.join(__dirname, `dist/js/${item}`);
+		await createDistDir(path.dirname(outJsPath));
+		await copyFileToDist(jsPath, outJsPath);
+	});
+
 	// 读取pages目录
 	var directoryPath = path.join(__dirname, 'src/pages');
 	const pagesFile = await readDirectory(directoryPath);
