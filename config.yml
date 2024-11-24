@@ -1,5 +1,7 @@
+# 网站标题
 title: My Static Site
 
+# 菜单
 menu:
     - name: 首页
       path: index
@@ -7,3 +9,9 @@ menu:
     - name: 测试
       path: hello
       renderTemplates: index
+
+# 关于网站SEO
+SEO:
+    author: 小哲
+    keywords: 脚手架, 静态站点, 小哲
+    description: 一个静态站点生成器
